@@ -1,5 +1,6 @@
 package edu.co.firstcomefirstserved.main;
 
+import edu.co.firstcomefirstserved.UI.GUI;
 import edu.co.firstcomefirstserved.logic.Queue;
 
 /**
@@ -14,7 +15,8 @@ public class Main {
     public static void main(String[] args) {
         //System.out.println("first come first served");
         Queue q = new Queue();
-        q.executeProcesses();
+//        GUI gui = new GUI();
+//        q.executeProcesses();
     }
     
 }
