@@ -1,5 +1,6 @@
 package edu.co.firstcomefirstserved.logic;
 
+import edu.co.firstcomefirstserved.UI.GUI;
 import java.util.List;
 import java.util.Random;
 import edu.co.firstcomefirstserved.models.Process;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  */
 public final class Queue extends Thread {
     
+    private GUI gui;
     private final String alphabet[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M",
         "N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     
@@ -18,11 +20,13 @@ public final class Queue extends Thread {
     public Queue() {
         processes = new ArrayList<>();
         initProcesses();
+        gui = new GUI();
     }
     
     void initProcesses() {
         Random ran = new Random();
         int numberOfProcesses = ran.nextInt(5)+1;
+        gui.lblNumberOfProcess.setText("PROCESOS: " + numberOfProcesses);
         
         Process newProcess;
         for (int i = 0; i < numberOfProcesses; i++) {
