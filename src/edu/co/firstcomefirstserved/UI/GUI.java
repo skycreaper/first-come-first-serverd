@@ -8,6 +8,7 @@ package edu.co.firstcomefirstserved.UI;
 import edu.co.firstcomefirstserved.models.Process;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -17,8 +18,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView.TableRow;
 
 /**
  *
@@ -46,9 +52,13 @@ public class GUI extends JFrame{
     public JButton btnStart = new JButton("INICIAR");
     public JTableHeader tblHeader;
     public JTable tblProcess;
+    public JTable diagram;
     
     private int screenWidth = 1024;
     private int screenHeight = 720;
+    
+    
+    ColorColumnRenderer cellRender = new ColorColumnRenderer();
     
     public GUI() {
         Container c = getContentPane();
@@ -70,19 +80,69 @@ public class GUI extends JFrame{
     }
     
     public void drawDiagram(List<Process> processes) {
-        int totalTime = processes.get(processes.size() -1 ).getEndTime();
-        JTable diagram = new JTable(processes.size(), totalTime);
+        pnlDiagram.removeAll();
+        pnlDiagram.repaint();
+        
+        int totalTime = processes.get(processes.size() -1).getEndTime()+1;
+        
+        String columns[] = new String[totalTime];
+        String data[][] = new String[processes.size()][totalTime];
+        columns[0] = "Proceso";
+        
+        
+        for (int i = 1; i < totalTime; i++ ) {
+            for (int j = 0; j < processes.size(); j++) {
+                if (i == 1) {
+                    data[j][0] = processes.get(j).getProcessName();
+                } else {
+                    data[j][i] = "-";
+                }
+                
+            }
+            columns[i] = Integer.toString(i);
+        }
+        
+        diagram = new JTable(data, columns);
+        
+        diagram.setBounds(10, 10, screenWidth-20, 80);
+        diagram.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        diagram.setEnabled(false);
+        
+        JScrollPane scroll = new JScrollPane(diagram);
+        scroll.setBounds(0, 10, screenWidth, 100);
+        scroll.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        
+        
+        pnlDiagram.add(scroll);
+        
         
         add(pnlDiagram);
         pnlDiagram.setLayout(null);
-        pnlDiagram.setBounds(0, 520, screenWidth, 200);
+        pnlDiagram.setBounds(0, 520, screenWidth, 150);
         pnlDiagram.setBackground(c2);
-        pnlDiagram.setBorder(BorderFactory.createLineBorder(Color.black));
+        pnlDiagram.setBorder(BorderFactory.createLineBorder(Color.red));
+        
         
         processes.forEach((process) -> {
             
         });
         
+    }
+    
+    public void paintCell(int column, int row) {
+        TableColumn tableColumn = diagram.getColumnModel().getColumn(column);
+        cellRender.setRowToColor(row);
+        tableColumn.setCellRenderer(cellRender);
+        diagram.repaint();
+        //        TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
+//        TableColumn tableColumn2 = diagram.getColumnModel().getColumn(1);
+//        
+//        ColorColumnRenderer cellRender = new ColorColumnRenderer();
+//        cellRender.row = 0;
+//        tableColumn.setCellRenderer(cellRender);
+//        cellRender.row = 1;
+//        tableColumn2.setCellRenderer(cellRender);
+        // end color
     }
     
     private void drawHeader(){
