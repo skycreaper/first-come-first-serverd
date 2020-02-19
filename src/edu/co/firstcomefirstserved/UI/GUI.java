@@ -89,6 +89,9 @@ public class GUI extends JFrame{
         lblAutorD.setForeground(c3);
         lblAutorD.setBounds(pnlSubHeader.getWidth()/2, 35, 220, 25);
         pnlSubHeader.add(lblAutorD);
+        pnlSubHeader.add(btnStart);
+        btnStart.setBounds(850, 60, 100, 40);
+        
 
     }
     public void drawContent(){
