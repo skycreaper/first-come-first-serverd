@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import javax.swing.table.JTableHeader;
 /**
  *
  * @author david
+ * @author juancsr
  */
 public class GUI extends JFrame{
     public Color c1 = new Color(85, 230, 193);  // rgb(85, 230, 193)
@@ -51,6 +53,14 @@ public class GUI extends JFrame{
         setVisible(true);
         setSize(1020, 720);
                 
+    }
+    
+    public void drawDiagram(List processes) {
+        JTable diagram = new DiagramTable();
+        processes.forEach((process) -> {
+            
+        });
+        
     }
     
     private void drawHeader(){
