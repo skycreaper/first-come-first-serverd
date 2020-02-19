@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public final class Queue extends Thread {
     
     private GUI gui;
+    private int numberOfProcesses;
     private final String alphabet[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M",
         "N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     
@@ -20,13 +21,17 @@ public final class Queue extends Thread {
     public Queue() {
         processes = new ArrayList<>();
         gui = new GUI();
+        gui.btnStart.addActionListener(new java.awt.event.ActionListener() {      //Metodo implementado provisional para el actionperformed 
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
         initProcesses();
     }
     
     void initProcesses() {
         Random ran = new Random();
-        int numberOfProcesses = ran.nextInt(5)+1;
-        gui.lblNumberOfProcess.setText("PROCESOS: " + numberOfProcesses);
+        numberOfProcesses = ran.nextInt(5)+1;
         
         Process newProcess;
         for (int i = 0; i < numberOfProcesses; i++) {
@@ -34,6 +39,10 @@ public final class Queue extends Thread {
             processes.add(newProcess);
         }
     }
+    public void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
+        gui.lblNumberOfProcess.setText("PROCESOS: " + numberOfProcesses);
+    }
+    
     
     public void executeProcesses() {
         printProcessesTable();
