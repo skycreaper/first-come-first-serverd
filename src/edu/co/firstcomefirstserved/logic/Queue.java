@@ -40,6 +40,7 @@ public final class Queue extends Thread {
         System.out.println(processes);
         boolean locked;
         Thread t;
+        Process duplicateProcess;
         
         Random ran = new Random();
         int blockedNumber = 0;
@@ -62,10 +63,10 @@ public final class Queue extends Thread {
                 /* if the process was blocked, it's assign a random time between 0
                 * and the execution time value, if it's not the value is 0
                 */
-                if (locked && process.getExecutionTime() > 1) {
+                if (locked && process.getExecutionTime() > 2) {
                     blockedNumber++;
                     int remainingTime = process.getExecutionTime() - (ran.nextInt(process.getExecutionTime()-2)+1);
-                    Process duplicateProcess = new Process(
+                            duplicateProcess = new Process(
                             process.getProcessName().substring(0, 1)+(blockedNumber),
                             processes.size(),
                             remainingTime      
@@ -75,7 +76,7 @@ public final class Queue extends Thread {
                     flagProcess = process.getEndTime();
                 }
                 Thread.sleep(process.getExecutionTime()*1000);
-                
+    
             } catch (InterruptedException x) {
                 System.err.println("InterruptedException: "+x.getMessage());
             } finally {
