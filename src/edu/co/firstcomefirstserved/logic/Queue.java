@@ -19,8 +19,8 @@ public final class Queue extends Thread {
     
     public Queue() {
         processes = new ArrayList<>();
-        initProcesses();
         gui = new GUI();
+        initProcesses();
     }
     
     void initProcesses() {
