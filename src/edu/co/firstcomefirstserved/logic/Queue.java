@@ -41,6 +41,7 @@ public final class Queue extends Thread {
     }
     public void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
         gui.lblNumberOfProcess.setText("PROCESOS: " + numberOfProcesses);
+        gui.drawDiagram(processes);
     }
     
     
