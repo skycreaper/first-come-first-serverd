@@ -104,8 +104,6 @@ public class GUI extends JFrame{
         }
         
         diagram = new JTable(data, columns);
-        
-//        diagram.setBounds(10, 10, screenWidth-20, 80);
         diagram.setBorder(BorderFactory.createLineBorder(Color.yellow));
         diagram.setEnabled(false);
         
@@ -143,10 +141,11 @@ cellRender.setRowToColor(2);
 tableColumn.setCellRenderer(cellRender);
     }
     
-    public void paintCell(int column, int row) {
+    public void paintCell(int column, int row, Color color) {
         ColorColumnRenderer cellRender = new ColorColumnRenderer();
         tableColumn = diagram.getColumnModel().getColumn(column);
         cellRender.setRowToColor(row);
+        cellRender.setColor(color);
         tableColumn.setCellRenderer(cellRender);
         //        TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
 //        TableColumn tableColumn2 = diagram.getColumnModel().getColumn(1);

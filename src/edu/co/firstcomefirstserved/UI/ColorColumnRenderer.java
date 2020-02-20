@@ -23,30 +23,35 @@ import javax.swing.table.TableCellRenderer;
 class ColorColumnRenderer extends DefaultTableCellRenderer {
     
     private int rowToColor = 0;
+    private Color color;
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
    {
       super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+      
       JLabel label = new JLabel();
       label.setOpaque(true);
       //label.setFont(new Font(?Dialog?, Font.PLAIN, 12));
       if (value != null) label.setText(value.toString());
-       //System.out.println(value.toString());
+       
       // set row 0 to red on yellow background
       if (row == this.rowToColor)
       {
-         label.setForeground(Color.red);
-         label.setBackground(Color.yellow);
+         //label.setForeground(color);
+         label.setBackground(color);
          return label;
       }
 
-      return this;
+      return null;
    }
 
     public void setRowToColor(int rowToColor) {
         this.rowToColor = rowToColor;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
 

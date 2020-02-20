@@ -4,6 +4,7 @@ import edu.co.firstcomefirstserved.UI.GUI;
 import java.util.List;
 import java.util.Random;
 import edu.co.firstcomefirstserved.models.Process;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.table.TableColumn;
 /**
@@ -16,6 +17,8 @@ public final class Queue extends Thread {
     private int numberOfProcesses;
     private final String alphabet[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M",
         "N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+   
+   private Color colors[] = {Color.yellow, Color.pink, Color.CYAN, Color.GREEN, Color.magenta};
     
     private List<Process> processes;
     
@@ -49,10 +52,9 @@ public final class Queue extends Thread {
           @Override
           public void run() {
             try {
-                gui.btnStart.setEnabled(false);
                 for (int i = 0; i < processes.size(); i++) {
-                    for (int j = processes.get(i).getArriveTime(); j < processes.get(i).getEndTime(); j++) {
-                        gui.paintCell(j, i);
+                    for (int j = processes.get(i).getStartTime(); j < processes.get(i).getEndTime(); j++) {
+                        gui.paintCell(j+1, i, colors[i]);
                         System.out.println("Coloreando: ["+i+","+j+"]");
                         gui.diagram.repaint();
                         this.sleep(1000);
