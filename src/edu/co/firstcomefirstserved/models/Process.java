@@ -39,19 +39,6 @@ public class Process extends Thread {
         this.running = false;
     }
     
-    @Override
-    public void run() {
-        //System.out.println("run thread");
-        try {
-            System.out.println("Ejecutando proceso..." + processName);
-            //System.out.println("Thread " + Thread.currentThread().getId() + " is running");
-        } catch(ThreadDeath e) {
-            System.out.println("ThreadDeath: "+ e.getMessage()); 
-        } catch(Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
-    }
-    
     public String getProcessName() {
         return processName;
     }

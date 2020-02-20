@@ -112,9 +112,6 @@ public class GUI extends JFrame{
         scroll.setBounds(10, 10, screenWidth - 30, 100);
         scroll.setBorder(BorderFactory.createLineBorder(Color.yellow));
         
-        
-        
-        
         add(pnlDiagram);
         pnlDiagram.add(scroll);
         pnlDiagram.setLayout(null);
@@ -206,31 +203,21 @@ tableColumn.setCellRenderer(cellRender);
 //        tblHeader.setBounds(15, 100, 300, 50);
     }
     public void drawTable(List<Process> processes ){
-//        String[] columnNames = {
-//            "Proceso",
-//            "T. Llegada",
-//            "T. Rafaga",
-//            "T. Comienzo",
-//            "T. Final",
-//            "T. Retorno",
-//            "T. Espera"
-//        };
         tblProcess = new JTable(processes.size(), 7);
-        changeColumNames();
+        
         tblProcess.setPreferredScrollableViewportSize(new Dimension(700, 150));
         tblProcess.setFillsViewportHeight(true);
         tblProcess.setBackground(c2);
         tblProcess.setForeground(Color.BLACK);
         tblProcess.setFont(font2);
         tblProcess.setEnabled(false);
-//        tblProcess.setColumnModel(columnNames);
         
         scrollTableProcess = new JScrollPane(tblProcess);
         pnlContent.add(scrollTableProcess);
         scrollTableProcess.setBounds(10, 10, 700, 100);
         scrollTableProcess.setBackground(c2);
         scrollTableProcess.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-//        System.out.println("ind: " + processes.getName() );
+
         for (int i = 0; i < processes.size(); i++) {
             for (int j = 0; j < 7; j++) {
                 tblProcess.setValueAt(processes.get(i).getProcessName(), i, 0);
@@ -243,6 +230,7 @@ tableColumn.setCellRenderer(cellRender);
                 
             }
         }
+       changeColumNames();
     }
     public void changeColumNames(){
         JTableHeader tblHeader = tblProcess.getTableHeader();
