@@ -154,10 +154,12 @@ public class GUI extends JFrame{
                 tblProcess.setValueAt(processes.get(i).getProcessName(), i, 0);
                 tblProcess.setValueAt(processes.get(i).getArriveTime(), i, 1);
                 tblProcess.setValueAt(processes.get(i).getExecutionTime(), i, 2);
+                tblProcess.setValueAt(processes.get(i).getStartTime(), i, 3);
+                tblProcess.setValueAt(processes.get(i).getEndTime(), i, 4);
+                tblProcess.setValueAt(processes.get(i).getReturnTime(), i, 5);
+                tblProcess.setValueAt(processes.get(i).getWaitTime(), i, 6);
                 
             }
-            System.out.println("val: " + processes.get(i).getArriveTime() );
-            System.out.println("valet: " + processes.get(i).getExecutionTime());
         }
     }
     
