@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
@@ -44,8 +45,8 @@ public class GUI extends JFrame{
     public JLabel lblNumberOfProcess = new JLabel();
     
     public JButton btnStart = new JButton("INICIAR");
-    public JTableHeader tblHeader;
     public JTable tblProcess;
+    public JScrollPane scrollTableProcess;
     
     private int screenWidth = 1024;
     private int screenHeight = 720;
@@ -130,6 +131,34 @@ public class GUI extends JFrame{
         lblNumberOfProcess.setFont(font2);
 //        pnlContent.add(tblHeader);
 //        tblHeader.setBounds(15, 100, 300, 50);
+    }
+    public void drawTable(List<Process> processes ){
+//        String[] columnNames = {
+//            "Proceso",
+//            "T. Llegada",
+//            "T. Rafaga",
+//            "T. Comienzo",
+//            "T. Final",
+//            "T. Retorno",
+//            "T. Espera"
+//        };
+        tblProcess = new JTable(processes.size(), 7);
+//        tblProcess.setColumnModel(columnNames);
+        
+        scrollTableProcess = new JScrollPane(tblProcess);
+        pnlContent.add(scrollTableProcess);
+        scrollTableProcess.setBounds(10, 10, 700, 150);
+//        System.out.println("ind: " + processes.getName() );
+        for (int i = 0; i < processes.size(); i++) {
+            for (int j = 0; j < 7; j++) {
+                tblProcess.setValueAt(processes.get(i).getProcessName(), i, 0);
+                tblProcess.setValueAt(processes.get(i).getArriveTime(), i, 1);
+                tblProcess.setValueAt(processes.get(i).getExecutionTime(), i, 2);
+                
+            }
+            System.out.println("val: " + processes.get(i).getArriveTime() );
+            System.out.println("valet: " + processes.get(i).getExecutionTime());
+        }
     }
     
     
