@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.TableView.TableRow;
 
 /**
@@ -203,6 +204,23 @@ public class GUI extends JFrame{
 //            "T. Espera"
 //        };
         tblProcess = new JTable(processes.size(), 7);
+        JTableHeader tblHeader = tblProcess.getTableHeader();
+        TableColumnModel tcm = tblHeader.getColumnModel();
+        TableColumn tblColumn = tcm.getColumn(0);
+        tblColumn.setHeaderValue("Proceso");
+//        TableColumn tblColumn2 = tcm.getColumn(1);
+//        tblColumn.setHeaderValue("T. Llegada");
+//        TableColumn tblColumn3 = tcm.getColumn(2);
+//        tblColumn.setHeaderValue("T. Rafaga");
+//        TableColumn tblColumn4 = tcm.getColumn(3);
+//        tblColumn.setHeaderValue("T. Comienzo");
+//        TableColumn tblColumn5 = tcm.getColumn(4);
+//        tblColumn.setHeaderValue("T. Final");
+//        TableColumn tblColumn6 = tcm.getColumn(5);
+//        tblColumn.setHeaderValue("T. Retorno");
+//        TableColumn tblColumn7 = tcm.getColumn(6);
+//        tblColumn.setHeaderValue("T. Espera");
+        tblHeader.repaint();
         tblProcess.setPreferredScrollableViewportSize(new Dimension(700, 150));
         tblProcess.setFillsViewportHeight(true);
         tblProcess.setBackground(c2);
