@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import edu.co.firstcomefirstserved.models.Process;
 import java.util.ArrayList;
+import javax.swing.table.TableColumn;
 /**
  *
  * @author juancsr
@@ -41,15 +42,34 @@ public final class Queue extends Thread {
     }
     public void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
         gui.lblNumberOfProcess.setText("PROCESOS: " + numberOfProcesses);
+        executeProcesses();
         gui.drawDiagram(processes);
+        
+        Thread waitThread = new Thread() {
+          @Override
+          public void run() {
+            try {
+                for (int i = 0; i < processes.size(); i++) {
+                    for (int j = processes.get(i).getArriveTime(); j < processes.get(i).getEndTime(); j++) {
+                        gui.paintCell(j, i);
+                        System.out.println("Coloreando: ["+i+","+j+"]");
+                        this.sleep(1000);
+                    }
+                }
+            } catch(InterruptedException e) {
+                System.out.println("Error en waitThread: "+e.getMessage());
+            }
+          }
+        };
+        waitThread.start();
         executeProcesses();
         gui.drawTable(processes);
     }
     
     
     public void executeProcesses() {
-        printProcessesTable();
-        System.out.println(processes);
+        //printProcessesTable();
+        //System.out.println(processes);
         boolean locked;
         Thread t;
         Process duplicateProcess;
@@ -67,7 +87,7 @@ public final class Queue extends Thread {
             t.start();
             
             
-            try {
+//            try {
                 locked = ran.nextBoolean();
                 System.out.println("locked: "+locked);
                 process.calculateTimes();
@@ -87,18 +107,18 @@ public final class Queue extends Thread {
                     process.calculateTimes();
                     flagProcess = process.getEndTime();
                 }
-                Thread.sleep(process.getExecutionTime()*1000);
+                //Thread.sleep(process.getExecutionTime()*1000);
     
-            } catch (InterruptedException x) {
-                System.err.println("InterruptedException: "+x.getMessage());
-            } finally {
-                t.interrupt();
-                System.out.println("process status: "+t.isAlive());
-            }
+//            } catch (InterruptedException x) {
+//                System.err.println("InterruptedException: "+x.getMessage());
+//            } finally {
+//                t.interrupt();
+//                System.out.println("process status: "+t.isAlive());
+//            }
             
             //System.out.println("flagProcess: "+flagProcess);
-            System.out.println("Terminado proceso..." + process.getProcessName());
-            printProcessesTable();
+            //System.out.println("Terminado proceso..." + process.getProcessName());
+            //printProcessesTable();
         }
     }
     
