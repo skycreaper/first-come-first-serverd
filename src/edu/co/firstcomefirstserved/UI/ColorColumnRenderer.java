@@ -17,33 +17,32 @@ import javax.swing.table.TableCellRenderer;
  * @author juancamilo
  */
 /**
-* Applied background and foreground color to single column of a JTable
-* in order to distinguish it apart from other columns.
-*/
+ * Applied background and foreground color to single column of a JTable in order
+ * to distinguish it apart from other columns.
+ */
 class ColorColumnRenderer extends DefaultTableCellRenderer {
-    
+
     private int rowToColor = 0;
     private Color color;
-    
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-   {
-      super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-      
-      JLabel label = new JLabel();
-      label.setOpaque(true);
-      //label.setFont(new Font(?Dialog?, Font.PLAIN, 12));
-      if (value != null) label.setText(value.toString());
-       
-      // set row 0 to red on yellow background
-      if (row == this.rowToColor)
-      {
-         //label.setForeground(color);
-         label.setBackground(color);
-      }
 
-      return label;
-   }
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        JLabel label = new JLabel();
+        label.setOpaque(true);
+        
+        if (value != null) {
+            label.setText(value.toString());
+        }
+
+        if (row == this.rowToColor) {
+            label.setBackground(color);
+            return label;
+        }
+        return label;
+
+    }
 
     public void setRowToColor(int rowToColor) {
         this.rowToColor = rowToColor;
@@ -53,4 +52,3 @@ class ColorColumnRenderer extends DefaultTableCellRenderer {
         this.color = color;
     }
 }
-

@@ -1,12 +1,11 @@
 package edu.co.firstcomefirstserved.logic;
 
 import edu.co.firstcomefirstserved.UI.GUI;
+import edu.co.firstcomefirstserved.models.Process;
 import java.util.List;
 import java.util.Random;
-import edu.co.firstcomefirstserved.models.Process;
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -18,8 +17,6 @@ public final class Queue extends Thread {
     private int numberOfProcesses;
     private final String alphabet[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
         "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-    private final Color colors[] = {Color.yellow, Color.pink, Color.CYAN, Color.GREEN, Color.magenta};
 
     private List<Process> processes;
 
@@ -58,7 +55,6 @@ public final class Queue extends Thread {
                 Random rand = new Random();
                 Color color;
                 Process actualProcess;
-                int recorrido;
 
                 try {
                     gui.btnStart.setEnabled(false);
@@ -73,21 +69,17 @@ public final class Queue extends Thread {
                         if (actualProcess.isLocked()) {
                             for (int j = actualProcess.getStartTime(); j < (actualProcess.getTimeWasBlocked()-actualProcess.getStartTime())+actualProcess.getStartTime(); j++) {
                                 gui.paintCell(j+1, i, color);
-                                //System.out.println("Coloreando: ["+i+","+j+"]");
                                 gui.diagram.repaint();
                                 this.sleep(1000);
                             }
-                            //System.out.println("Proceso: " + actualProcess.getProcessName() + " bloqueado en " + actualProcess.getTimeWasBlocked());
                             for (int j = actualProcess.getTimeWasBlocked(); j < actualProcess.getEndTime(); j++) {
                                 gui.paintCell(j + 1, i, Color.red);
-                                //System.out.println("Coloreando: ["+i+","+j+"]");
                                 gui.diagram.repaint();
                                 this.sleep(1000);
                             }
                         } else {
                             for (int j = actualProcess.getStartTime(); j < actualProcess.getEndTime(); j++) {
                                 gui.paintCell(j + 1, i, color);
-                                //System.out.println("Coloreando: ["+i+","+j+"]");
                                 gui.diagram.repaint();
                                 this.sleep(1000);
                             }
@@ -103,8 +95,6 @@ public final class Queue extends Thread {
     }
 
     public void executeProcesses() {
-        //printProcessesTable();
-        //System.out.println(processes);
         boolean locked;
         Thread t;
         Process duplicateProcess, process;
