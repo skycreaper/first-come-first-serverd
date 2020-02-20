@@ -60,7 +60,7 @@ public class GUI extends JFrame{
     private int screenHeight = 720;
     
     
-    ColorColumnRenderer cellRender = new ColorColumnRenderer();
+    TableColumn tableColumn;
     
     public GUI() {
         Container c = getContentPane();
@@ -105,8 +105,6 @@ public class GUI extends JFrame{
         }
         
         diagram = new JTable(data, columns);
-        
-//        diagram.setBounds(10, 10, screenWidth-20, 80);
         diagram.setBorder(BorderFactory.createLineBorder(Color.yellow));
         diagram.setEnabled(false);
         
@@ -125,17 +123,31 @@ public class GUI extends JFrame{
         pnlDiagram.setBorder(BorderFactory.createLineBorder(Color.red));
         
         
-        processes.forEach((process) -> {
-            
-        });
+        //testPaintCell();
         
     }
     
-    public void paintCell(int column, int row) {
-        TableColumn tableColumn = diagram.getColumnModel().getColumn(column);
+    private void testPaintCell() {
+        ColorColumnRenderer cellRender = new ColorColumnRenderer();
+        // Get column 0
+TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
+
+// Set our own table cell renderer for this column.
+tableColumn.setCellRenderer(cellRender);
+
+// Get column 1
+//TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
+cellRender.setRowToColor(2);
+// Set our own table cell renderer for this column.
+tableColumn.setCellRenderer(cellRender);
+    }
+    
+    public void paintCell(int column, int row, Color color) {
+        ColorColumnRenderer cellRender = new ColorColumnRenderer();
+        tableColumn = diagram.getColumnModel().getColumn(column);
         cellRender.setRowToColor(row);
+        cellRender.setColor(color);
         tableColumn.setCellRenderer(cellRender);
-        diagram.repaint();
         //        TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
 //        TableColumn tableColumn2 = diagram.getColumnModel().getColumn(1);
 //        
