@@ -40,10 +40,9 @@ class ColorColumnRenderer extends DefaultTableCellRenderer {
       {
          //label.setForeground(color);
          label.setBackground(color);
-         return label;
       }
 
-      return null;
+      return label;
    }
 
     public void setRowToColor(int rowToColor) {
