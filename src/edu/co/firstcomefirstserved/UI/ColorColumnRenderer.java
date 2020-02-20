@@ -27,19 +27,21 @@ class ColorColumnRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
    {
+      super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
       JLabel label = new JLabel();
       label.setOpaque(true);
       //label.setFont(new Font(?Dialog?, Font.PLAIN, 12));
       if (value != null) label.setText(value.toString());
-
+       //System.out.println(value.toString());
       // set row 0 to red on yellow background
       if (row == this.rowToColor)
       {
          label.setForeground(Color.red);
          label.setBackground(Color.yellow);
+         return label;
       }
 
-      return label;
+      return this;
    }
 
     public void setRowToColor(int rowToColor) {

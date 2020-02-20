@@ -58,7 +58,7 @@ public class GUI extends JFrame{
     private int screenHeight = 720;
     
     
-    ColorColumnRenderer cellRender = new ColorColumnRenderer();
+    TableColumn tableColumn;
     
     public GUI() {
         Container c = getContentPane();
@@ -123,17 +123,30 @@ public class GUI extends JFrame{
         pnlDiagram.setBorder(BorderFactory.createLineBorder(Color.red));
         
         
-        processes.forEach((process) -> {
-            
-        });
+        //testPaintCell();
         
     }
     
+    private void testPaintCell() {
+        ColorColumnRenderer cellRender = new ColorColumnRenderer();
+        // Get column 0
+TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
+
+// Set our own table cell renderer for this column.
+tableColumn.setCellRenderer(cellRender);
+
+// Get column 1
+//TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
+cellRender.setRowToColor(2);
+// Set our own table cell renderer for this column.
+tableColumn.setCellRenderer(cellRender);
+    }
+    
     public void paintCell(int column, int row) {
-        TableColumn tableColumn = diagram.getColumnModel().getColumn(column);
+        ColorColumnRenderer cellRender = new ColorColumnRenderer();
+        tableColumn = diagram.getColumnModel().getColumn(column);
         cellRender.setRowToColor(row);
         tableColumn.setCellRenderer(cellRender);
-        diagram.repaint();
         //        TableColumn tableColumn = diagram.getColumnModel().getColumn(0);
 //        TableColumn tableColumn2 = diagram.getColumnModel().getColumn(1);
 //        

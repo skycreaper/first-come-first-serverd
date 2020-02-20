@@ -49,13 +49,16 @@ public final class Queue extends Thread {
           @Override
           public void run() {
             try {
+                gui.btnStart.setEnabled(false);
                 for (int i = 0; i < processes.size(); i++) {
                     for (int j = processes.get(i).getArriveTime(); j < processes.get(i).getEndTime(); j++) {
                         gui.paintCell(j, i);
                         System.out.println("Coloreando: ["+i+","+j+"]");
+                        gui.diagram.repaint();
                         this.sleep(1000);
                     }
                 }
+                gui.btnStart.setEnabled(true);
             } catch(InterruptedException e) {
                 System.out.println("Error en waitThread: "+e.getMessage());
             }
