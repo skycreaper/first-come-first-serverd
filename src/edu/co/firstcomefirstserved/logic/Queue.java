@@ -65,6 +65,8 @@ public final class Queue extends Thread {
           }
         };
         waitThread.start();
+        executeProcesses();
+        gui.drawTable(processes);
     }
     
     

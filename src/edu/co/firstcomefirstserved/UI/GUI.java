@@ -10,6 +10,7 @@ import edu.co.firstcomefirstserved.models.Process;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.util.List;
@@ -50,8 +51,8 @@ public class GUI extends JFrame{
     public JLabel lblNumberOfProcess = new JLabel();
     
     public JButton btnStart = new JButton("INICIAR");
-    public JTableHeader tblHeader;
     public JTable tblProcess;
+    public JScrollPane scrollTableProcess;
     public JTable diagram;
     
     private int screenWidth = 1024;
@@ -104,19 +105,19 @@ public class GUI extends JFrame{
         
         diagram = new JTable(data, columns);
         
-        diagram.setBounds(10, 10, screenWidth-20, 80);
+//        diagram.setBounds(10, 10, screenWidth-20, 80);
         diagram.setBorder(BorderFactory.createLineBorder(Color.yellow));
         diagram.setEnabled(false);
         
         JScrollPane scroll = new JScrollPane(diagram);
-        scroll.setBounds(0, 10, screenWidth, 100);
+        scroll.setBounds(10, 10, screenWidth - 30, 100);
         scroll.setBorder(BorderFactory.createLineBorder(Color.yellow));
         
         
-        pnlDiagram.add(scroll);
         
         
         add(pnlDiagram);
+        pnlDiagram.add(scroll);
         pnlDiagram.setLayout(null);
         pnlDiagram.setBounds(0, 520, screenWidth, 150);
         pnlDiagram.setBackground(c2);
@@ -203,6 +204,44 @@ tableColumn.setCellRenderer(cellRender);
         lblNumberOfProcess.setFont(font2);
 //        pnlContent.add(tblHeader);
 //        tblHeader.setBounds(15, 100, 300, 50);
+    }
+    public void drawTable(List<Process> processes ){
+//        String[] columnNames = {
+//            "Proceso",
+//            "T. Llegada",
+//            "T. Rafaga",
+//            "T. Comienzo",
+//            "T. Final",
+//            "T. Retorno",
+//            "T. Espera"
+//        };
+        tblProcess = new JTable(processes.size(), 7);
+        tblProcess.setPreferredScrollableViewportSize(new Dimension(700, 150));
+        tblProcess.setFillsViewportHeight(true);
+        tblProcess.setBackground(c2);
+        tblProcess.setForeground(Color.BLACK);
+        tblProcess.setFont(font2);
+        tblProcess.setEnabled(false);
+//        tblProcess.setColumnModel(columnNames);
+        
+        scrollTableProcess = new JScrollPane(tblProcess);
+        pnlContent.add(scrollTableProcess);
+        scrollTableProcess.setBounds(10, 10, 700, 100);
+        scrollTableProcess.setBackground(c2);
+        scrollTableProcess.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+//        System.out.println("ind: " + processes.getName() );
+        for (int i = 0; i < processes.size(); i++) {
+            for (int j = 0; j < 7; j++) {
+                tblProcess.setValueAt(processes.get(i).getProcessName(), i, 0);
+                tblProcess.setValueAt(processes.get(i).getArriveTime(), i, 1);
+                tblProcess.setValueAt(processes.get(i).getExecutionTime(), i, 2);
+                tblProcess.setValueAt(processes.get(i).getStartTime(), i, 3);
+                tblProcess.setValueAt(processes.get(i).getEndTime(), i, 4);
+                tblProcess.setValueAt(processes.get(i).getReturnTime(), i, 5);
+                tblProcess.setValueAt(processes.get(i).getWaitTime(), i, 6);
+                
+            }
+        }
     }
     
     
